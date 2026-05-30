@@ -1,57 +1,51 @@
 <template>
-  <section style="background:white;padding:72px 24px" aria-label="Partner Brands">
-    <div class="max-w-[1280px] mx-auto">
+  <section style="background:white;padding:64px 0" aria-label="Partner Brands">
+    <div class="max-w-[1280px] mx-auto px-6 md:px-10">
 
-      <!-- Header -->
-      <div style="text-align:center;margin-bottom:40px">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#0f2066;margin-bottom:12px">
-          Our Partners
+      <div style="text-align:center;margin-bottom:36px">
+        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#0f2066;margin-bottom:10px">
+          {{ t.brands.marqueeEyebrow }}
         </div>
-        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,44px);letter-spacing:0.06em;color:#0B1A3A;margin:0">
-          Trusted Automotive Brands Worldwide
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,42px);letter-spacing:0.06em;color:#0B1A3A;margin:0">
+          {{ t.brands.marqueeHeading }}
         </h2>
       </div>
 
-      <!-- Auto-scroll marquee — bigger logos -->
-      <div style="overflow:hidden;position:relative;margin-bottom:36px">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(to right,white,transparent);z-index:2;pointer-events:none"/>
-        <div style="position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to left,white,transparent);z-index:2;pointer-events:none"/>
+      <!-- Partner brands scroll -->
+      <div style="overflow:hidden;position:relative;margin-bottom:32px">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(to right,white,transparent);z-index:2;pointer-events:none"/>
+        <div style="position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(to left,white,transparent);z-index:2;pointer-events:none"/>
         <div class="brand-scroll-track">
           <div v-for="(b, i) in [...partnerBrands, ...partnerBrands]" :key="i"
-               style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:10px 20px;height:100px">
+               style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:8px 16px;height:80px">
             <img :src="b.logo" :alt="b.name"
-                 style="max-height:100px;max-width:160px;object-fit:contain;display:block"
-                 @error="e => { e.target.style.display='none'; e.target.nextSibling.style.display='block' }" />
-            <span :style="{ display:'none', fontFamily:'\'Bebas Neue\',sans-serif', fontSize:'18px', letterSpacing:'0.1em', color:'#0B1A3A' }">
-              {{ b.name }}
-            </span>
+                 style="max-height:72px;max-width:140px;object-fit:contain;display:block" />
           </div>
         </div>
       </div>
 
       <!-- View More -->
-      <div style="text-align:center;margin-bottom:64px">
+      <div style="text-align:center;margin-bottom:48px">
         <RouterLink to="/products"
-          style="display:inline-block;background:#0B1A3A;color:white;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 36px;text-decoration:none;border-radius:3px"
-          @click="analytics.track('click','brands_view_more')">
-          View More
+          style="display:inline-block;background:#0B1A3A;color:white;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:11px 32px;text-decoration:none;border-radius:3px">
+          {{ t.brands.viewMore }}
         </RouterLink>
       </div>
 
-      <!-- Car brands — carousel -->
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,2.5vw,28px);letter-spacing:0.06em;color:#0B1A3A;text-align:center;margin:0 0 28px 0">
-        Fit to most car brands in Indonesia:
+      <!-- Car brands label -->
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2vw,24px);letter-spacing:0.06em;color:#0B1A3A;text-align:center;margin:0 0 24px 0">
+        {{ t.brands.fitTo }}
       </h3>
 
-      <!-- Auto-scroll marquee — car brands (no captions, no arrows, no dots) -->
-      <div style="overflow:hidden;position:relative;margin-bottom:0">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(to right,white,transparent);z-index:2;pointer-events:none"/>
-        <div style="position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(to left,white,transparent);z-index:2;pointer-events:none"/>
+      <!-- Car brands scroll -->
+      <div style="overflow:hidden;position:relative">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:60px;background:linear-gradient(to right,white,transparent);z-index:2;pointer-events:none"/>
+        <div style="position:absolute;right:0;top:0;bottom:0;width:60px;background:linear-gradient(to left,white,transparent);z-index:2;pointer-events:none"/>
         <div class="carbrand-scroll-track">
           <div v-for="(c, i) in [...carBrands, ...carBrands]" :key="i"
-               style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:10px 20px;height:100px">
+               style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:8px 16px;height:80px">
             <img :src="c.logo" :alt="c.name"
-                 style="max-height:100px;max-width:160px;object-fit:contain;display:block" />
+                 style="max-height:72px;max-width:140px;object-fit:contain;display:block" />
           </div>
         </div>
       </div>
@@ -61,8 +55,8 @@
 </template>
 
 <script setup>
-import { useAnalyticsStore } from '@/stores/analytics'
-const analytics = useAnalyticsStore()
+import { useI18n } from '@/composables/useI18n'
+const { t } = useI18n()
 
 import logoNsk          from '@/assets/images/brands/nsk.png'
 import logo555          from '@/assets/images/brands/555.png'
@@ -89,70 +83,67 @@ import carToyota     from '@/assets/images/brands/toyota.png'
 import carSuzuki     from '@/assets/images/brands/suzuki.png'
 import carNissan     from '@/assets/images/brands/nissan.png'
 import carMitsubishi from '@/assets/images/brands/mitsubishi.png'
-
-const partnerBrands = [
-  { name: 'NSK',           logo: logoNsk },
-  { name: '555',           logo: logo555 },
-  { name: 'SEIKEN',        logo: logoSeiken },
-  { name: 'GMB',           logo: logoGmb },
-  { name: 'KJ LEX',        logo: logoKjlex },
-  { name: 'NOK',           logo: logoNok },
-  { name: 'SHOWA',         logo: logoShowa },
-  { name: 'NWB',           logo: logoNwb },
-  { name: 'COMPACT',       logo: logoCompact },
-  { name: 'MITSUBOSHI',    logo: logoMitsuboshi },
-  { name: 'NKN',           logo: logoNkn },
-  { name: 'NEW ERA',       logo: logoNewEra },
-  { name: '3K',            logo: logo3k },
-  { name: 'RBI',           logo: logoRbi },
-  { name: 'KJ SHOCK',      logo: logoKjshock },
-  { name: 'KJ TRIC',       logo: logoKjtric },
-  { name: 'KJ STEERING',   logo: logoKjsteering },
-  { name: 'KH HYDRAULICS', logo: logoKjhydraulics },
-]
-
 import carHonda      from '@/assets/images/brands/honda.png'
 import carLexus      from '@/assets/images/brands/lexus.png'
 import carFord       from '@/assets/images/brands/ford.png'
 import carHino       from '@/assets/images/brands/hino.png'
 
-const carBrands = [
-  { name: 'Isuzu',      logo: carIsuzu },
-  { name: 'Mazda',      logo: carMazda },
-  { name: 'Toyota',     logo: carToyota },
-  { name: 'Suzuki',     logo: carSuzuki },
-  { name: 'Nissan',     logo: carNissan },
-  { name: 'Mitsubishi', logo: carMitsubishi },
-  { name: 'Honda',      logo: carHonda },
-  { name: 'Lexus',      logo: carLexus },
-  { name: 'Ford',       logo: carFord },
-  { name: 'Hino',       logo: carHino },
+const partnerBrands = [
+  { name:'NSK',           logo:logoNsk },
+  { name:'555',           logo:logo555 },
+  { name:'SEIKEN',        logo:logoSeiken },
+  { name:'GMB',           logo:logoGmb },
+  { name:'KJ LEX',        logo:logoKjlex },
+  { name:'NOK',           logo:logoNok },
+  { name:'SHOWA',         logo:logoShowa },
+  { name:'NWB',           logo:logoNwb },
+  { name:'COMPACT',       logo:logoCompact },
+  { name:'MITSUBOSHI',    logo:logoMitsuboshi },
+  { name:'NKN',           logo:logoNkn },
+  { name:'NEW ERA',       logo:logoNewEra },
+  { name:'3K',            logo:logo3k },
+  { name:'RBI',           logo:logoRbi },
+  { name:'KJ SHOCK',      logo:logoKjshock },
+  { name:'KJ TRIC',       logo:logoKjtric },
+  { name:'KJ STEERING',   logo:logoKjsteering },
+  { name:'KJ HYDRAULICS', logo:logoKjhydraulics },
 ]
 
-// No carousel logic needed — using CSS marquee animation
+const carBrands = [
+  { name:'Isuzu',      logo:carIsuzu },
+  { name:'Mazda',      logo:carMazda },
+  { name:'Toyota',     logo:carToyota },
+  { name:'Suzuki',     logo:carSuzuki },
+  { name:'Nissan',     logo:carNissan },
+  { name:'Mitsubishi', logo:carMitsubishi },
+  { name:'Honda',      logo:carHonda },
+  { name:'Lexus',      logo:carLexus },
+  { name:'Ford',       logo:carFord },
+  { name:'Hino',       logo:carHino },
+]
 </script>
 
 <style>
 .brand-scroll-track {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   align-items: center;
-  animation: brandScroll 32s linear infinite;
+  animation: brandScroll 30s linear infinite;
 }
-.brand-scroll-track:hover { animation-play-state: paused; }
+.brand-scroll-track:hover { animation-play-state: paused }
 @keyframes brandScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from { transform: translateX(0) }
+  to   { transform: translateX(-50%) }
 }
 .carbrand-scroll-track {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   align-items: center;
-  animation: carBrandScroll 32s linear infinite;
+  animation: carScroll 28s linear infinite;
 }
-.carbrand-scroll-track:hover { animation-play-state: paused; }
-@keyframes carBrandScroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.carbrand-scroll-track:hover { animation-play-state: paused }
+@keyframes carScroll {
+  from { transform: translateX(0) }
+  to   { transform: translateX(-50%) }
 }
 </style>

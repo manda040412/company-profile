@@ -1,5 +1,5 @@
 <template>
-  <div style="background:#0B1A3A;width:100%">
+  <div style="background:#0B1A3A;width:100%;position:sticky;top:0;z-index:901">
     <div class="max-w-[1280px] mx-auto px-6 md:px-10" style="height:40px;display:flex;align-items:center;justify-content:space-between">
 
       <!-- Left: email -->
@@ -16,12 +16,31 @@
 
       <!-- Right: EN / ID -->
       <div style="display:flex;align-items:center;gap:14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600">
-        <button style="background:none;border:none;cursor:pointer;color:white;padding:0;display:flex;align-items:center;gap:6px">
+        <button
+          @click="setLang('EN')"
+          :style="{
+            background: 'none', border: 'none', cursor: 'pointer',
+            color: currentLang === 'EN' ? 'white' : 'rgba(255,255,255,0.55)',
+            padding: '0', display: 'flex', alignItems: 'center', gap: '6px',
+            transition: 'color 0.2s'
+          }"
+          @mouseover="e => { if(currentLang !== 'EN') e.currentTarget.style.color='white' }"
+          @mouseout="e => { if(currentLang !== 'EN') e.currentTarget.style.color='rgba(255,255,255,0.55)' }"
+        >
           <img src="https://flagcdn.com/w20/gb.png" alt="EN" width="20" height="14" style="display:block;border-radius:2px;object-fit:cover" />
           EN
         </button>
-        <button style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.55);padding:0;display:flex;align-items:center;gap:6px"
-                onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.55)'">
+        <button
+          @click="setLang('ID')"
+          :style="{
+            background: 'none', border: 'none', cursor: 'pointer',
+            color: currentLang === 'ID' ? 'white' : 'rgba(255,255,255,0.55)',
+            padding: '0', display: 'flex', alignItems: 'center', gap: '6px',
+            transition: 'color 0.2s'
+          }"
+          @mouseover="e => { if(currentLang !== 'ID') e.currentTarget.style.color='white' }"
+          @mouseout="e => { if(currentLang !== 'ID') e.currentTarget.style.color='rgba(255,255,255,0.55)' }"
+        >
           <img src="https://flagcdn.com/w20/id.png" alt="ID" width="20" height="14" style="display:block;border-radius:2px;object-fit:cover" />
           ID
         </button>
@@ -32,5 +51,8 @@
 
 <script setup>
 import { useAnalyticsStore } from '@/stores/analytics'
+import { useI18n } from '@/composables/useI18n'
+
 const analytics = useAnalyticsStore()
+const { currentLang, setLang } = useI18n()
 </script>

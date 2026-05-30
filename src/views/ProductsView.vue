@@ -3,7 +3,6 @@
     <ProductsHero />
     <ProductCatalog />
     <BrandsSection />
-    <CtaBand />
   </main>
 </template>
 
@@ -11,5 +10,4 @@
 import ProductsHero  from '@/components/products/ProductsHero.vue'
 import ProductCatalog from '@/components/products/ProductCatalog.vue'
 import BrandsSection from '@/components/products/BrandsSection.vue'
-import CtaBand       from '@/components/home/CtaBand.vue'
 </script>

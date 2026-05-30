@@ -7,6 +7,8 @@ const ServicesView = () => import('@/views/ServicesView.vue')
 const ProductsView = () => import('@/views/ProductsView.vue')
 const ArticlesView = () => import('@/views/ArticlesView.vue')
 const ContactView  = () => import('@/views/ContactView.vue')
+const BrandDetailView = () => import('@/views/BrandDetailView.vue')
+const ArticleDetailView = () => import('@/views/ArticleDetailView.vue')
 const NotFound     = () => import('@/views/NotFoundView.vue')
 
 const routes = [
@@ -82,6 +84,26 @@ const routes = [
     component: () => import('@/views/AdminView.vue'),
     meta: { title: 'Analytics Dashboard | TRAD Admin', description: 'Private analytics dashboard.' }
   },
+  {
+  path: '/products/brand/:slug',
+  name: 'brand-detail',
+  component: BrandDetailView,
+  meta: {
+    title: 'Brand Detail | PT Timur Raya Anugerah Damai',
+    description: 'Detailed product information and catalog for our brand partners.',
+    canonical: 'https://tranugerah.com/products/',
+  }
+},
+{
+  path: '/articles/:slug',
+  name: 'article-detail',
+  component: ArticleDetailView,
+  meta: {
+    title: 'Article | PT Timur Raya Anugerah Damai',
+    description: 'Read our automotive guidelines and tips.',
+    canonical: 'https://tranugerah.com/articles/',
+  }
+},
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',

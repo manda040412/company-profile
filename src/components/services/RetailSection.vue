@@ -1,46 +1,77 @@
 <template>
-  <section class="bg-cream px-12 py-24" aria-labelledby="retail-heading">
-    <div class="section-tag">Supporting Local Business</div>
-    <h2 class="section-h2" id="retail-heading">YOUR RETAIL PARTNER</h2>
-    <p class="section-lead mb-14">
-      We empower local businesses — trusted supplier for independent retailers
-      and workshops across the region.
-    </p>
+  <section class="bg-[#EEF1F5] py-[60px] px-6 lg:px-16">
+    <div class="max-w-[1280px] mx-auto">
+      <div class="retail-grid">
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <!-- Image -->
-      <div class="aspect-[4/3] bg-navy rounded-md overflow-hidden flex items-center justify-center text-8xl">
-        <!--
-          GAMBAR: ganti dengan:
-          <img src="@/assets/images/services/retail-store.jpg" alt="TRAD Retail Partner" class="w-full h-full object-cover" />
-        -->
-        🏪
-      </div>
-
-      <!-- Features -->
-      <div class="flex flex-col gap-5">
-        <div
-          v-for="f in retailFeatures" :key="f.title"
-          class="flex gap-4 items-start bg-white rounded-md p-5 border-[1.5px] border-transparent hover:border-navy transition-all duration-200"
-        >
-          <div class="w-10 h-10 bg-red/10 rounded-md flex items-center justify-center text-xl flex-shrink-0">
-            {{ f.icon }}
-          </div>
-          <div>
-            <strong class="block text-[14px] font-bold text-navy tracking-[0.04em] mb-1">{{ f.title }}</strong>
-            <span class="text-[13px] text-gray-400 leading-relaxed">{{ f.desc }}</span>
+        <!-- TEXT -->
+        <div>
+          <p style="text-transform:uppercase;color:#0f2066;font-size:14px;letter-spacing:0.07em;font-weight:600;margin-bottom:10px">
+            {{ t.retail.label }}
+          </p>
+          <h2 style="font-size:clamp(24px,4vw,40px);line-height:1.05;font-weight:700;color:black;margin-bottom:18px">
+            {{ t.retail.title1 }}<br />{{ t.retail.title2 }}
+          </h2>
+          <p style="font-size:14px;line-height:1.8;color:rgba(0,0,0,0.75);margin-bottom:28px">
+            {{ t.retail.desc }}
+          </p>
+          <div class="retail-features">
+            <div v-for="(feat, i) in t.retail.features" :key="i"
+              style="background:#0f2066;border-radius:50%;width:150px;height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;flex-shrink:0">
+              <img :src="icons[i]" :alt="feat.label" style="width:54px;height:54px;object-fit:contain;margin-bottom:8px" />
+              <p style="color:white;font-size:12px;line-height:1.2;font-weight:600;margin:0;white-space:pre-line">{{ feat.label }}</p>
+            </div>
           </div>
         </div>
+
+        <!-- IMAGE -->
+        <div class="retail-img-wrap">
+          <img src="@/assets/images/partners/employee.png" alt="Retail Partner"
+               style="width:100%;height:100%;object-fit:cover;border-radius:16px" />
+          <div class="retail-float" style="position:absolute;bottom:-16px;left:-40px;background:#0f2066;border-radius:14px;padding:22px 28px;max-width:280px">
+            <p style="color:white;font-size:17px;line-height:1.1;font-weight:700;margin:0">{{ t.retail.floating }}</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-const retailFeatures = [
-  { icon: '📦', title: 'Parts Availability',        desc: 'High-demand certified spare parts always in stock for your customers. Never lose a sale.' },
-  { icon: '⚡', title: 'Next / Same Day Dispatch',  desc: 'Fast dispatch to keep your workshop or retail shop running without costly delays.' },
-  { icon: '🤝', title: 'Long-Term Partnership',     desc: 'Dedicated support and partner programs to help grow your automotive business with us.' },
-  { icon: '📋', title: 'Legal Documentation',       desc: 'Complete tax invoices and official documents ready for every transaction.' },
-]
+import { useI18n }      from '@/composables/useI18n'
+import availabilityIcon from '@/assets/icons/availability.png'
+import dispatchIcon     from '@/assets/icons/dispatch.png'
+import partnerIcon      from '@/assets/icons/partner.png'
+
+const { t }   = useI18n()
+const icons   = [availabilityIcon, dispatchIcon, partnerIcon]
 </script>
+
+<style>
+.retail-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 64px;
+  align-items: center;
+}
+.retail-img-wrap {
+  position: relative;
+  height: 520px;
+}
+.retail-float  { display: block }
+.retail-features {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+  .retail-grid    { grid-template-columns: 1fr; gap: 36px }
+  .retail-img-wrap{ height: 320px }
+  .retail-float   { display: none }
+}
+@media (max-width: 480px) {
+  .retail-features { justify-content: center }
+}
+</style>

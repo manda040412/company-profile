@@ -1,54 +1,81 @@
 <template>
-  <section class="bg-white px-12 py-24" aria-labelledby="workshop-heading">
-    <div class="section-tag">Integrated Service Pledge</div>
-    <h2 class="section-h2" id="workshop-heading">INSTALLATION SERVICES</h2>
-    <p class="section-lead mb-14">
-      Anugerah Auto Workshop — expert technicians install our certified parts
-      with service warranty available.
-    </p>
+  <section class="bg-white py-[60px] px-6 lg:px-16">
+    <div class="max-w-[1280px] mx-auto">
+      <div class="workshop-grid">
 
-    <div class="grid grid-cols-3 sm:grid-cols-6 gap-4 mb-12" role="list">
-      <article
-        v-for="ws in site.workshopServices" :key="ws.name"
-        class="bg-cream-dark border-[1.5px] border-transparent rounded-md py-7 px-4 text-center hover:border-navy transition-all duration-200"
-        role="listitem"
-        :aria-label="ws.name"
-      >
-        <div class="text-[32px] mb-2.5" aria-hidden="true">{{ ws.icon }}</div>
-        <div class="font-head text-[13px] tracking-[0.08em] text-navy">{{ ws.name }}</div>
-      </article>
-    </div>
+        <!-- LEFT -->
+        <div>
+          <p style="text-transform:uppercase;color:#0f2066;font-size:14px;letter-spacing:0.08em;font-weight:600;margin-bottom:10px">
+            {{ t.workshop.label }}
+          </p>
+          <h2 style="font-size:clamp(22px,3.5vw,36px);line-height:1.05;font-weight:700;color:black;margin-bottom:18px">
+            {{ t.workshop.title1 }}<br />{{ t.workshop.title2 }}
+          </h2>
+          <p style="font-size:14px;line-height:1.75;color:rgba(0,0,0,0.75);margin-bottom:16px">
+            {{ t.workshop.desc }}
+          </p>
+          <div style="display:flex;justify-content:center;margin-bottom:16px">
+            <img src="@/assets/images/AAJM.png" alt="Anugerah Auto"
+                 style="width:150px;height:100px;object-fit:cover;border-radius:4px" />
+          </div>
+          <div class="ws-service-grid">
+            <div v-for="(name, i) in t.workshop.services" :key="i"
+              style="display:flex;align-items:center;gap:10px">
+              <img :src="wsIcons[i]" :alt="name" style="width:44px;height:44px;object-fit:contain;flex-shrink:0" />
+              <span style="color:#0f2066;font-size:13px;font-weight:600">{{ name }}</span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:center;margin-top:20px">
+            <a href="https://anugerahauto.tranugerah.com/" target="_blank" rel="noopener"
+               style="background:#0f2066;color:white;font-size:13px;font-weight:600;height:42px;padding:0 24px;border-radius:4px;text-decoration:none;display:inline-flex;align-items:center">
+              {{ t.workshop.findOut }}
+            </a>
+          </div>
+        </div>
 
-    <!-- Workshop CTA banner -->
-    <div class="relative bg-navy rounded-md overflow-hidden px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="absolute inset-0 bg-grid opacity-100" />
-      <div class="relative z-10">
-        <div class="text-[11px] font-bold tracking-[0.18em] uppercase text-gold mb-2">Anugerah Auto Workshop</div>
-        <h3 class="font-head text-[28px] tracking-wide text-white leading-none mb-2">
-          NEED A PROFESSIONAL INSTALLATION?
-        </h3>
-        <p class="text-[14px] text-white/50">
-          Our workshop uses only genuine TRAD-sourced spare parts, installed by certified technicians.
-        </p>
-      </div>
-      <div class="relative z-10 flex-shrink-0">
-        <a
-          :href="site.company.workshop"
-          target="_blank"
-          rel="noopener"
-          class="btn-white whitespace-nowrap"
-          @click="analytics.track('click', 'workshop_visit_link')"
-        >
-          Visit Workshop ↗
-        </a>
+        <!-- RIGHT -->
+        <div class="ws-img-wrap">
+          <img src="@/assets/images/anugerah auto.png" alt="Anugerah Auto"
+               style="width:100%;height:100%;object-fit:contain" />
+        </div>
+
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { useSiteStore }      from '@/stores/site'
-import { useAnalyticsStore } from '@/stores/analytics'
-const site      = useSiteStore()
-const analytics = useAnalyticsStore()
+import { useI18n }    from '@/composables/useI18n'
+import suspensionIcon from '@/assets/icons/suspension.png'
+import brakeIcon      from '@/assets/icons/brake.png'
+import shockIcon      from '@/assets/icons/shock.png'
+import batteryIcon    from '@/assets/icons/battery.png'
+import oilIcon        from '@/assets/icons/oil.png'
+import tuneupIcon     from '@/assets/icons/tuneup.png'
+
+const { t }    = useI18n()
+const wsIcons  = [suspensionIcon, brakeIcon, shockIcon, batteryIcon, oilIcon, tuneupIcon]
 </script>
+
+<style>
+.workshop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.ws-img-wrap { max-height: 500px }
+.ws-service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 20px;
+}
+
+@media (max-width: 860px) {
+  .workshop-grid { grid-template-columns: 1fr; gap: 32px }
+  .ws-img-wrap   { max-height: 280px }
+}
+@media (max-width: 480px) {
+  .ws-service-grid { grid-template-columns: repeat(2, 1fr) }
+}
+</style>
